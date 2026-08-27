@@ -1,0 +1,165 @@
+<div class="invoice-form">
+
+  <h2>إنشاء فاتورة</h2>
+
+  <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label>نوع الفاتورة</label>
+
+      <select formControlName="invType">
+        <option value="SALE">بيع</option>
+        <option value="EXPENSE">مصروف</option>
+      </select>
+    </div>
+
+
+    @if (invoiceForm.get('invType')?.value === 'SALE') {
+
+      <div class="form-group">
+        <label>اسم العميل</label>
+
+        <input
+          type="text"
+          formControlName="clientName"
+          placeholder="اسم العميل"
+        >
+      </div>
+
+
+      <div formArrayName="items">
+
+        @for (item of items.controls; track $index; let i = $index) {
+
+          <div class="item" [formGroupName]="i">
+
+            <h3>المنتج {{ i + 1 }}</h3>
+
+            <div class="item-fields">
+
+              <div class="form-group">
+                <label>اسم المنتج</label>
+
+                <select
+                  formControlName="productId"
+                  (change)="selectProduct(i)"
+                >
+
+                  <option value="">
+                    اختر المنتج
+                  </option>
+
+                  @for (product of products; track product._id) {
+
+                    <option [value]="product._id">
+                      {{ product.productName }}
+                    </option>
+
+                  }
+
+                </select>
+              </div>
+
+
+              <div class="form-group">
+                <label>الكمية</label>
+
+                <input
+                  type="number"
+                  formControlName="quantity"
+                  min="1"
+                >
+              </div>
+
+
+              <div class="form-group">
+                <label>سعر الوحدة</label>
+
+                <input
+                  type="number"
+                  formControlName="unitCost"
+                  readonly
+                >
+              </div>
+
+
+              <div class="form-group">
+                <label>الخصم %</label>
+
+                <input
+                  type="number"
+                  formControlName="discount"
+                  min="0"
+                  max="100"
+                >
+              </div>
+
+            </div>
+
+
+            @if (items.length > 1) {
+
+              <button
+                type="button"
+                class="remove-btn"
+                (click)="removeItem(i)"
+              >
+                حذف المنتج
+              </button>
+
+            }
+
+          </div>
+
+        }
+
+      </div>
+
+
+      <button
+        type="button"
+        class="add-btn"
+        (click)="addItem()"
+      >
+        + إضافة منتج
+      </button>
+
+    }
+
+
+   @if (invoiceForm.get('invType')?.value === 'EXPENSE') {
+
+  <div class="form-group">
+    <label>اسم المصروف</label>
+
+    <input
+      type="text"
+      formControlName="expenseName"
+      placeholder="مثال: كهرباء، إيجار، نقل"
+    >
+  </div>
+
+  <div class="form-group">
+    <label>قيمة المصروف</label>
+
+    <input
+      type="number"
+      formControlName="expenseAmount"
+      min="0"
+      placeholder="قيمة المصروف"
+    >
+  </div>
+
+}
+
+
+    <button
+      type="submit"
+      class="submit-btn"
+    >
+      حفظ الفاتورة
+    </button>
+
+  </form>
+
+</div>

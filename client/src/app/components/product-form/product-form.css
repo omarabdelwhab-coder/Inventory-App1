@@ -1,0 +1,97 @@
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  background-color: #0b0c10;
+}
+
+.modal-backdrop-custom {
+  min-height: 100vh;
+  background-color: rgba(11, 12, 16, 0.85);
+  padding: 20px;
+}
+
+.product-modal-card {
+  background-color: #1a1c29;
+  border: 1px solid #2a2d3d;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 480px;
+  padding: 28px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #8c90a6;
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  color: #ffffff;
+}
+
+.text-secondary {
+  color: #8c90a6 !important;
+}
+
+.extra-small {
+  font-size: 0.75rem;
+}
+
+
+.dark-input {
+  background-color: #12131c !important;
+  border: 1px solid #2a2d3d !important;
+  color: #ffffff !important;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 0.9rem;
+}
+
+.dark-input::placeholder {
+  color: #4a4e69;
+}
+
+.dark-input:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2) !important;
+}
+
+
+.btn-custom {
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.btn-purple {
+  background-color: #6366f1;
+  border: none;
+  color: #ffffff;
+}
+
+.btn-purple:hover {
+  background-color: #4f46e5;
+  color: #ffffff;
+}
+
+.btn-purple:disabled {
+  background-color: #3730a3;
+  opacity: 0.6;
+}
+
+.btn-dark-cancel {
+  background-color: #242736;
+  border: 1px solid #32364a;
+  color: #8c90a6;
+}
+
+.btn-dark-cancel:hover {
+  background-color: #2e3246;
+  color: #ffffff;
+}

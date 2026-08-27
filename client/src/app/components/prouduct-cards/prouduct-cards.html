@@ -1,0 +1,22 @@
+<div class="product-card">
+  <div class="product-name">{{ product.productName}}</div>
+
+
+  <div class="product-price">{{ product.unitCost}}</div>
+  <div class="product-category">{{ product.quantity }}</div>
+
+
+
+
+  @if (product.quantity === 0) {
+    <div class="product-status out-of-stock">Out Of Stock</div>
+  } @else if (product.quantity < 5) {
+    <div class="product-status low-stock">Low Stock</div>
+  } @else {
+    <div class="product-status in-stock">In Stock</div>
+  }
+
+  <button class="edit-button" (click)="editProduct()">
+    Edit
+  </button>
+</div>

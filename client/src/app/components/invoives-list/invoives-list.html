@@ -1,0 +1,40 @@
+<div><app-vault></app-vault></div>
+<div class="container">
+  <div class="product-list">
+    <div class="list-header">
+      <span>clientName</span>
+
+      <span>Type</span>
+      <span>date</span>
+      <span>total</span>
+
+
+      <span class="actions-col"></span>
+    </div>
+
+
+    @for (invoice of invoices; track $index) {
+    <div class="product-card">
+      <div class="product-name">{{ invoice.clientName}}</div>
+
+
+      <div class="product-price">{{ invoice.invType}}</div>
+      <div class="product-price">{{ invoice.date}}</div>
+      <div class="product-category">{{ invoice.finalTotal }}</div>
+
+
+
+
+
+
+  </div>
+
+  } @empty {
+  <div class="empty-state">No products found.</div>
+  }
+  <button class="btn btn-success" [routerLink]="['/addinvoice']" >Add inoice</button>
+
+
+</div>
+
+
