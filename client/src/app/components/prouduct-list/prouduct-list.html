@@ -1,0 +1,26 @@
+
+
+
+<div class="container">
+  <app-prouduct-search (serchChange)="onSearchName($event)"></app-prouduct-search>
+  <div class="product-list">
+    <div class="list-header">
+      <span>Name</span>
+      <span>unit cost</span>
+      <span>Stock</span>
+
+      <span class="actions-col"></span>
+    </div>
+
+
+    @for (product of products; track $index) {
+    <app-prouduct-cards [product]="product"></app-prouduct-cards>
+    } @empty {
+    <div class="empty-state">No products found.</div>
+    }
+
+
+
+  </div>
+
+</div>

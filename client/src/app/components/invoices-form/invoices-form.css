@@ -1,0 +1,91 @@
+.invoice-form {
+  width: 800px;
+  max-width: 95%;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  direction: rtl;
+  font-family: Arial, sans-serif;
+}
+
+.invoice-form h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 15px;
+  background: white;
+}
+
+.item {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #f8f8f8;
+}
+
+.item h3 {
+  margin-top: 0;
+}
+
+.item-fields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.add-btn,
+.submit-btn,
+.remove-btn {
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.add-btn {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 15px;
+}
+
+.remove-btn {
+  width: 100%;
+  margin-top: 5px;
+}
+
+@media (max-width: 600px) {
+  .invoice-form {
+    padding: 20px;
+  }
+
+  .item-fields {
+    grid-template-columns: 1fr;
+  }
+}

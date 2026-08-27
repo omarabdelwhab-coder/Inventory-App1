@@ -1,0 +1,135 @@
+@if (invoice) {
+
+  <div class="invoice-container">
+
+    <div class="header">
+      <div class="header-title">
+        شركة جيزوند فارما
+      </div>
+
+      <div class="header-info">
+        ب. ض / 756-713-943
+      </div>
+
+      <div class="header-info">
+        سجل / 160788
+      </div>
+    </div>
+
+
+    <div class="header invoice-number">
+      اذن رقم / {{ invoice._id }}
+    </div>
+
+
+    <div class="details-row">
+
+      <div>
+        السيد/ {{ invoice.clientName }}
+      </div>
+
+      <div>
+        التاريخ /
+        {{ invoice.date | date:'dd/MM/yyyy' }}
+      </div>
+
+    </div>
+
+
+    @if (invoice.invType === 'SALE') {
+
+      <table class="invoice-table">
+
+        <thead>
+          <tr>
+            <th>م</th>
+            <th>اسم الصنف</th>
+            <th>الكمية</th>
+            <th>السعر</th>
+            <th>خصم %</th>
+            <th>القيمة</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          @for (item of invoice.items; track $index; let i = $index) {
+
+            <tr>
+              <td>{{ i + 1 }}</td>
+
+              <td>
+                {{ item.productName }}
+              </td>
+
+              <td>
+                {{ item.quantity }}
+              </td>
+
+              <td>
+                {{ item.unitCost }}
+              </td>
+
+              <td>
+                {{ item.discount }}
+              </td>
+
+              <td>
+                {{ item.total }}
+              </td>
+            </tr>
+
+          }
+
+          <tr>
+            <td colspan="4" class="total-label">
+              الإجمالي النهائي
+            </td>
+
+            <td colspan="2" class="total-amount">
+              {{ invoice.finalTotal }}
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    }
+
+
+@if (invoice.invType === 'EXPENSE') {
+
+  <div class="expense-details">
+
+    <div class="expense-row">
+      <span> نوع العملية </span>
+      <span>مصروف </span>
+    </div>
+
+    <div class="expense-row">
+      <span>اسم المصروف</span>
+      <span>{{ invoice.expenseName }}</span>
+    </div>
+
+    <div class="expense-row">
+      <span>قيمة المصروف</span>
+      <span>
+        {{ invoice.expenseAmount | number:'1.2-2' }}
+      </span>
+    </div>
+
+    <div class="expense-row">
+      <span>الإجمالي</span>
+      <span>
+        {{ invoice.finalTotal | number:'1.2-2' }}
+      </span>
+    </div>
+
+  </div>
+
+}
+
+  </div>
+
+}
