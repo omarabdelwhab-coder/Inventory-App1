@@ -34,7 +34,7 @@ const addClient =  async (req,res)=>{
 const updateClient = async (req,res)=>{
     try{
     let clientName1 =req.params.clientName
-    let updateClient = await clients.findOne({clientName:clientName1},{...req.body})
+    let updateClient = await clients.updateOne({clientName:clientName1},{...req.body})
      if (updateClient.matchedCount === 0) {
   return res.json('client not found');
 }
