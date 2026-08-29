@@ -1,6 +1,8 @@
 const invoices = require("../models/Invoices.js");
 const products = require("../models/prouducts.js");
 const cash = require("../models/cash.js");
+const clients = require('../models/clients.model.js')
+
 
 const getAllInvoices = async (req, res) => {
   try {
@@ -18,6 +20,8 @@ const addInvoices = async (req, res) => {
   try {
     let items = [];
     let finalTotal = 0;
+     let remainingAmount =0
+    const paidAmount = Number(req.body.paidAmount) || 0;
 
     if (req.body.invType === "SALE") {
       items = req.body.items.map((item) => {
@@ -37,6 +41,9 @@ const addInvoices = async (req, res) => {
 
         return sum + (item.total - discountValue);
       }, 0);
+      
+
+      remainingAmount =finalTotal- paidAmount
     } else {
       finalTotal = Number(req.body.expenseAmount) || 0;
     }
@@ -45,6 +52,8 @@ const addInvoices = async (req, res) => {
       ...req.body,
       items,
       finalTotal,
+       paidAmount,
+  remainingAmount
     });
 
     await newInvoice.save();
@@ -65,12 +74,20 @@ const addInvoices = async (req, res) => {
           },
         })),
       );
+      await clients.updateOne(
+        {clientName: req.body.clientName },
+      {
+        $inc: {
+          balance: remainingAmount,
+        },
+      }
+      )
 
       await cash.updateOne(
         {},
         {
           $inc: {
-            cash: finalTotal,
+            cash: paidAmount,
           },
         },
       );
