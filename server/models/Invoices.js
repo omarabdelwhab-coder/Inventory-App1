@@ -10,6 +10,8 @@ const invoicesModel = new mongoose.Schema({
     clientName:String,
     expenseName: String,
 expenseAmount: Number,
+paidAmount:Number,
+remainingAmount:Number,
     invType:{
         type:String,
         enum:['SALE','EXPENSE'],
