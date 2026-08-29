@@ -35,6 +35,7 @@ export class InvoicesForm implements OnInit {
       expenseName: [''],
       expenseAmount: [0],
       invType: ['SALE'],
+
       items: this.fb.array([])
     });
 
@@ -64,6 +65,7 @@ export class InvoicesForm implements OnInit {
         productName: [''],
         quantity: [1],
         unitCost: [0],
+        maxQuantity:[0],
         discount: [0]
       })
     );
@@ -78,7 +80,7 @@ export class InvoicesForm implements OnInit {
 
     const item = this.items.at(index);
 
-    const productId = item.get('productId')?.value;
+     const productId = item.get('productId')?.value;
 
     const product = this.products.find(
       p => p._id === productId
@@ -88,7 +90,9 @@ export class InvoicesForm implements OnInit {
 
       item.patchValue({
         productName: product.productName,
-        unitCost: product.unitCost
+        unitCost: product.unitCost,
+        maxQuantity:product.quantity
+
       });
 
     }
@@ -117,6 +121,8 @@ export class InvoicesForm implements OnInit {
     }
 
     else {
+
+
 
       data = {
         clientName: formValue.clientName,

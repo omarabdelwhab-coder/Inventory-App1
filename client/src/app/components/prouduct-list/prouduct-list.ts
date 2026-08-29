@@ -7,7 +7,7 @@ import { Vault } from '../vault/vault';
 
 @Component({
   selector: 'app-prouduct-list',
-  imports: [ProuductSearch, ProuductCards,Vault],
+  imports: [ProuductSearch, ProuductCards],
   templateUrl: './prouduct-list.html',
   styleUrl: './prouduct-list.css',
 })
