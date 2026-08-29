@@ -3,4 +3,9 @@ node_modules/
 server/.env
 server/node_modules/
 client/node_modules/
-server.zip
+
+dist/
+client/dist/
+release/
+
+*.log
