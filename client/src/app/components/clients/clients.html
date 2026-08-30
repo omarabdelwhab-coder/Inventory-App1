@@ -1,0 +1,40 @@
+<div class="container">
+
+  <div class="product-list">
+    <table class="invoice-table text-light"><thead>
+      <tr>
+      <td>clientName</td>
+      <td>balance</td>
+    </tr>
+  </thead><tbody>
+      @for (client of clients; track $index) {
+      <tr>
+        <td>{{client.clientName}}</td>
+        <td>{{client.balance}}</td>
+      </tr>
+    }
+    </tbody>
+
+
+
+  </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+
+
+
+</div>

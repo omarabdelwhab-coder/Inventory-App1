@@ -23,7 +23,7 @@ export class ProductService {
     return this.http.delete(`${this.Url_base}/id/${id}`)
   }
   searchByName(name:string){
-    return this.http.get(`${this.Url_base}/name/${name}`)
+    return this.http.get(`${this.Url_base}/name/${encodeURIComponent(name )}`)
   }
   getById(id:any){
     return this.http.get(`${this.Url_base}/id/${id}`)

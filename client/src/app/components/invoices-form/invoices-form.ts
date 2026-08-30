@@ -8,6 +8,7 @@ import {
 import { InvoicesService } from '../../service/invoices-service';
 import { ProductService } from '../../service/product-service';
 import { Router } from '@angular/router';
+import { Client } from '../../service/client';
 
 @Component({
   selector: 'app-invoices-form',
@@ -19,13 +20,17 @@ export class InvoicesForm implements OnInit {
 
   invoiceForm!: FormGroup;
   products: any[] = [];
+clients: any[] = [];
+filteredClients: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private invoiceService: InvoicesService,
     private productService: ProductService,
     private router: Router,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private clientService: Client
+
   ) { }
 
   ngOnInit() {
@@ -35,13 +40,33 @@ export class InvoicesForm implements OnInit {
       expenseName: [''],
       expenseAmount: [0],
       invType: ['SALE'],
+      paidAmount:[0],
+      payOldBalance: [false],
+
+
+
 
       items: this.fb.array([])
     });
+    this.clientService.getAllClients().subscribe({
+      next: (res: any) => {
+        this.clients = res;
+         this.filteredClients = res;
+
+
+        this.cdr.detectChanges();
+
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+
 
     this.productService.getAllPoducts().subscribe({
       next: (res: any) => {
         this.products = res;
+
         this.cdr.detectChanges();
 
       },
@@ -52,6 +77,14 @@ export class InvoicesForm implements OnInit {
 
     this.addItem();
   }
+  filterClients(value: string) {
+  const search = value.trim().toLowerCase();
+
+  this.filteredClients = this.clients.filter((client) =>
+    client.clientName.toLowerCase().includes(search)
+  );
+}
+
 
   get items(): FormArray {
     return this.invoiceForm.get('items') as FormArray;
@@ -124,11 +157,15 @@ export class InvoicesForm implements OnInit {
 
 
 
-      data = {
-        clientName: formValue.clientName,
-        invType: 'SALE',
-        items: formValue.items
-      };
+      const payOldBalance = formValue.payOldBalance;
+
+ data = {
+  clientName: formValue.clientName,
+  invType: 'SALE',
+  paidAmount: Number(formValue.paidAmount || 0),
+  items: payOldBalance ? [] : formValue.items
+};
+
 
     }
 

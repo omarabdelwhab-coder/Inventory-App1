@@ -5,6 +5,7 @@ const invoicesModel = new mongoose.Schema({
         type:Date,
         default:Date.now
     },
+    invoiceNumber:Number,
    
     finalTotal:Number,
     clientName:String,
@@ -12,6 +13,7 @@ const invoicesModel = new mongoose.Schema({
 expenseAmount: Number,
 paidAmount:Number,
 remainingAmount:Number,
+    previousBalance :Number,
     invType:{
         type:String,
         enum:['SALE','EXPENSE'],
