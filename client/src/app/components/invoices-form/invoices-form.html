@@ -12,163 +12,144 @@
         <option value="EXPENSE">مصروف</option>
       </select>
     </div>
+    <div > <label>
+        <input type="checkbox" formControlName="payOldBalance">
+        تحصيل من الرصيد القديم فقط
+      </label></div>
+    <div class="form-group"> <input type="text" formControlName="clientName" placeholder="اسم العميل"
+        (input)="filterClients($any($event.target).value)" autocomplete="off">
 
-
-    @if (invoiceForm.get('invType')?.value === 'SALE') {
-
-      <div class="form-group">
-        <label>اسم العميل</label>
-
-        <input
-          type="text"
-          formControlName="clientName"
-          placeholder="اسم العميل"
-        >
+      @if (filteredClients.length > 0 && invoiceForm.get('clientName')?.value) {
+      <div class="client-suggestions">
+        @for (client of filteredClients; track client._id) {
+        <div class="client-suggestion"
+          (click)="invoiceForm.get('clientName')?.setValue(client.clientName); filteredClients = []">
+          {{ client.clientName }}
+        </div>
+        }
       </div>
+      }
+    </div>
+    <div class="form-group">
+      <label>دفع</label>
 
-
-      <div formArrayName="items">
-
-        @for (item of items.controls; track $index; let i = $index) {
-
-          <div class="item" [formGroupName]="i">
-
-            <h3>المنتج {{ i + 1 }}</h3>
-
-            <div class="item-fields">
-
-
-              <div class="form-group">
-                <label>اسم المنتج</label>
-
-                <select
-                  formControlName="productId"
-                  (change)="selectProduct(i)"
-                >
-
-                  <option value="">
-                    اختر المنتج
-                  </option>
-
-                  @for (product of products; track product._id) {
-
-                    <option [value]="product._id">
-                      {{ product.productName }}
-                    </option>
-
-                  }
-
-                </select>
-              </div>
-               <div class="form-group">
-                <label>اقصى كمية</label>
-
-                <input
-                  type="number"
-                  formControlName="maxQuantity"
-                  min="1"
-                 readonly
-                >
-              </div>
+      <input type="text" formControlName="paidAmount" placeholder="">
+    </div>
 
 
 
-              <div class="form-group">
-                <label>الكمية</label>
-
-                <input
-                  type="number"
-                  formControlName="quantity"
-                  min="1"
-                >
-              </div>
+    @if (
+    invoiceForm.get('invType')?.value === 'SALE' &&
+    !invoiceForm.get('payOldBalance')?.value
+    ) {
 
 
-              <div class="form-group">
-                <label>سعر الوحدة</label>
-
-                <input
-                  type="number"
-                  formControlName="unitCost"
-                  readonly
-                >
-              </div>
 
 
-              <div class="form-group">
-                <label>الخصم %</label>
-
-                <input
-                  type="number"
-                  formControlName="discount"
-                  min="0"
-                  max="100"
-                >
-              </div>
-
-            </div>
 
 
-            @if (items.length > 1) {
 
-              <button
-                type="button"
-                class="remove-btn"
-                (click)="removeItem(i)"
-              >
-                حذف المنتج
-              </button>
+    <div formArrayName="items">
 
-            }
+      @for (item of items.controls; track $index; let i = $index) {
 
+      <div class="item" [formGroupName]="i">
+
+        <h3>المنتج {{ i + 1 }}</h3>
+
+        <div class="item-fields">
+
+
+          <div class="form-group">
+            <label>اسم المنتج</label>
+
+            <select formControlName="productId" (change)="selectProduct(i)">
+
+              <option value="">
+                اختر المنتج
+              </option>
+
+              @for (product of products; track product._id) {
+
+              <option [value]="product._id">
+                {{ product.productName }}
+              </option>
+
+              }
+
+            </select>
           </div>
+          <div class="form-group">
+            <label>اقصى كمية</label>
+
+            <input type="number" formControlName="maxQuantity" min="1" readonly>
+          </div>
+
+
+
+          <div class="form-group">
+            <label>الكمية</label>
+
+            <input type="number" formControlName="quantity" min="1">
+          </div>
+
+
+          <div class="form-group">
+            <label>سعر الوحدة</label>
+
+            <input type="number" formControlName="unitCost" readonly>
+          </div>
+
+
+          <div class="form-group">
+            <label>الخصم %</label>
+
+            <input type="number" formControlName="discount" min="0" max="100">
+          </div>
+
+        </div>
+
+
+        @if (items.length > 1) {
+
+        <button type="button" class="remove-btn" (click)="removeItem(i)">
+          حذف المنتج
+        </button>
 
         }
 
       </div>
 
+      }
 
-      <button
-        type="button"
-        class="add-btn"
-        (click)="addItem()"
-      >
-        + إضافة منتج
-      </button>
+    </div>
+
+
+    <button type="button" class="add-btn" (click)="addItem()">
+      + إضافة منتج
+    </button>
 
     }
 
 
-   @if (invoiceForm.get('invType')?.value === 'EXPENSE') {
+    @if (invoiceForm.get('invType')?.value === 'EXPENSE') {
 
-  <div class="form-group">
-    <label>اسم المصروف</label>
+    <div class="form-group">
+      <label>اسم المصروف</label>
 
-    <input
-      type="text"
-      formControlName="expenseName"
-      placeholder="مثال: كهرباء، إيجار، نقل"
-    >
-  </div>
+      <input type="text" formControlName="expenseName" placeholder="مثال: كهرباء، إيجار، نقل">
+    </div>
 
-  <div class="form-group">
-    <label>قيمة المصروف</label>
+    <div class="form-group">
+      <label>قيمة المصروف</label>
 
-    <input
-      type="number"
-      formControlName="expenseAmount"
-      min="0"
-      placeholder="قيمة المصروف"
-    >
-  </div>
+      <input type="number" formControlName="expenseAmount" min="0" placeholder="قيمة المصروف">
+    </div>
 
-}
+    }
 
 
-    <button
-      type="submit"
-      class="submit-btn"
-    >
+    <button type="submit" class="submit-btn">
       حفظ الفاتورة
     </button>
 

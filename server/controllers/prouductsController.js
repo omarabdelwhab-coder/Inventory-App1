@@ -51,9 +51,15 @@ let deleteProduct =async (req,res)=>{
 let searchByname = async (req,res)=>{
     try {
         let pName = req.params.name;
-    let product=await products.find({productName:pName})
-    if(!product) res.json('product not found')
-    res.json(product)    
+   const product = await products.find({
+  productName: { $regex: pName, $options: 'i' }
+});
+
+   if (product.length === 0) {
+  return res.json([]);
+}
+
+return res.json(product);
         
     } catch (error) {
             res.json({err:error.message})

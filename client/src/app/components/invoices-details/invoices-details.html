@@ -18,7 +18,7 @@
 
 
     <div class="header invoice-number">
-      اذن رقم / {{ invoice._id }}
+      اذن رقم / {{ invoice.invoiceNumber }}
     </div>
 
 
@@ -88,6 +88,34 @@
 
             <td colspan="2" class="total-amount">
               {{ invoice.finalTotal }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" class="total-label">
+             رصيد سابق
+            </td>
+
+            <td colspan="2" class="total-amount">
+              {{ invoice.previousBalance}}
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="4" class="total-label">
+             تم دفع
+            </td>
+
+            <td colspan="2" class="total-amount">
+              {{ invoice.paidAmount }}
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4" class="total-label">
+             رصيد جديد
+            </td>
+
+            <td colspan="2" class="total-amount">
+              {{ client?.balance}}
             </td>
           </tr>
 

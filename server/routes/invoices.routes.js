@@ -4,5 +4,7 @@ const router=express.Router()
 router.route('/')
    .get(invoicesController.getAllInvoices)
    .post(invoicesController.addInvoices)
-router.get('/:id',invoicesController.getById)
+router.get('/id/:id',invoicesController.getById)
+router.get('/clientName/:clientName',invoicesController.serarchByName)
+router.get('/invoiceNumber/:invoiceNumber',invoicesController.serarchByinvoiceNumber)
 module.exports = router;   

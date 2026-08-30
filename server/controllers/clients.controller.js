@@ -17,7 +17,7 @@ try {
 
 const addClient =  async (req,res)=>{
     try {
-        let newClent = new clients(req,body)
+        let newClent = new clients(req.body)
     await newClent.save()
     res.json('client added successfully')
         
@@ -40,14 +40,31 @@ const updateClient = async (req,res)=>{
 }
         res.json('client updated successfully')
     } catch (error) {
-         res.json({err:error.message})
+         res.status(500).json({
+      err: error.message,
+    });   
 
         
     }
 
 }
+let findByName= async (req,res)=>{
+    try {
+        let clientName1 =req.params.clientName
+    let client = await clients.findOne({clientName:clientName1})
+      if(!client) res.json('client not found')
+    res.json(client)
+        
+    } catch (error) {
+        res.status(500).json({
+      err: error.message,
+    });   
+    }
+}
+
 module.exports ={
     getAllClients,
     addClient,
-    updateClient
+    updateClient,
+    findByName
 }

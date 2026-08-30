@@ -16,4 +16,7 @@ export class Client {
   updateClient(clientName:string,data:any){
     return this.http.put(`${this.Url_base}/${clientName}`,data)
   }
+  findByName(name:string){
+    return this.http.get(`${this.Url_base}/name/${name}`)
+  }
 }

@@ -5,6 +5,7 @@ import { Vault } from './components/vault/vault';
 import { InvoivesList } from './components/invoives-list/invoives-list';
 import { InvoicesForm } from './components/invoices-form/invoices-form';
 import { InvoicesDetails } from './components/invoices-details/invoices-details';
+import { Clients } from './components/clients/clients';
 
 export const routes: Routes = [
   {
@@ -37,6 +38,10 @@ export const routes: Routes = [
   {
     path:'addinvoice',
     component:InvoicesForm
+  },
+  {
+    path:'clients',
+    component:Clients
   },
 
 

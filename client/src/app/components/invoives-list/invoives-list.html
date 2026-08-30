@@ -1,13 +1,17 @@
 <div><app-vault></app-vault></div>
 <div class="container">
+
   <div class="product-list">
+    <app-invoices-search (searchChange)="onSearchName($event)"></app-invoices-search>
+    <app-invoices-searchnum (searchChangenum)="onSearchnum($event)"></app-invoices-searchnum>
     <div class="list-header">
       <span>clientName</span>
+      <span>invoice number</span>
 
       <span>Type</span>
       <span>date</span>
       <span>total</span>
-      <button class="btn btn-success" [routerLink]="['/addinvoice']" >Add inoice</button>
+      <button class="btn btn-success" [routerLink]="['/addinvoice']">Add inoice</button>
 
 
 
@@ -16,8 +20,9 @@
 
 
     @for (invoice of invoices; track $index) {
-    <div class="product-card">
+    <div class="product-card" [routerLink]="['/invoicesdetails',invoice._id]">
       <div class="product-name">{{ invoice.clientName}}</div>
+      <div class="product-name">{{ invoice.invoiceNumber}}</div>
 
 
       <div class="product-price">{{ invoice.invType}}</div>
@@ -29,13 +34,11 @@
 
 
 
+    </div>
+
+    } @empty {
+    <div class="empty-state">No products found.</div>
+    }
+
+
   </div>
-
-  } @empty {
-  <div class="empty-state">No products found.</div>
-  }
-
-
-</div>
-
-

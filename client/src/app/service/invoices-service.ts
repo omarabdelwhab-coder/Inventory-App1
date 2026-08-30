@@ -16,7 +16,13 @@ export class InvoicesService {
     return this.http.post<InvoicesModel>(`${this.Url_base}`,data)
   }
      getById(id:string){
-      return this.http.get(`${this.Url_base}/${id}`)
+      return this.http.get(`${this.Url_base}/id/${id}`)
 
    }
+   searchByName(name:string){
+    return this.http.get(`${this.Url_base}/clientName/${encodeURIComponent(name )}`)
+  }
+  searchByinvoiceNumber(num:number){
+    return this.http.get(`${this.Url_base}/invoiceNumber/${encodeURIComponent(num )}`)
+  }
 }

@@ -8,6 +8,9 @@ export interface InvoiceItem {
 }
 
 export interface InvoicesModel {
+  invoiceNumber:number,
+paidAmount: number;
+previousBalance:number,
   _id: string;
   date: string;
   finalTotal: number;
